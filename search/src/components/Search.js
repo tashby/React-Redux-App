@@ -1,23 +1,24 @@
 import React from 'react';
-import axios from 'axios';
+import { connect } from 'react-redux';
+import { getSearchResults } from '../redux/action';
 
-function Search() {
+function Search(props) {
+    console.log(props);
     return (
-        <>
-            <input onChange={ onInputChange }/>
-        </>
+        <div>
+            <input onChange={ e => onInputChange(e, props) }/>
+        </div>
     )
 }
 
-async function onInputChange(e) {
-    const url = `http://api.giphy.com/v1/gifs/search?api_key=I6I9lmGDLRxTDdmOKpzclM62USF6Sa7i=${ e.target.value }?limit=20`;
-    const data = await axios.get(url);
-    console.log(data.data.data);
+async function onInputChange(e, props) {
+    if (e.target.value.trim() !== ''){
+    props.getSearchResults(e.target.value);
+    }
 }
 
-// function callApi(value){
-//     //api.giphy.com/v1/gifs/search?api_key=I6I9lmGDLRxTDdmOKpzclM62USF6Sa7i=pets?limit=20
-    
-// }
+const mapDispatchToProps = {
+    getSearchResults
+};
 
-export default Search;
+export default connect(null, mapDispatchToProps)(Search);
