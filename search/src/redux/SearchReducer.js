@@ -8,7 +8,7 @@ const initialState = Map({
 const SearchReducer = (state = initialState, action) => {
     switch(action.type) {
         case types.addSearchResults: {
-            return state.merge( collections:{
+            return state.merge( collections: {
                 searchResults: action.results
             });
         }
